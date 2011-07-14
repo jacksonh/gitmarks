@@ -1,0 +1,22 @@
+{
+	"name":  "Gitmarks",
+	"version": "1.0",
+	"description": "Keep track of your github projects.",
+	"background_page": "background.html",
+	"content_scripts": [
+    	  {
+      	    "matches": ["https://github.com/*"],
+      	    "js": ["jquery.js", "projectscript.js"]
+    	  },
+	  {
+            "matches": ["https://github.com/"],
+      	    "js": ["jquery.js", "dashboardscript.js"]
+	  }
+  	],
+	"page_action": {
+	   "name": "Gitmarks. Easily keep track of github projects."
+	},
+	"permissions": [
+	   "tabs", "bookmarks"
+	]
+}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!--
+ * Copyright (c) 2010 The Chromium Authors. All rights reserved.  Use of this
+ * source code is governed by a BSD-style license that can be found in the
+ * LICENSE file.
+-->
+<html>
+  <head>
+    <script>
+
+      function toggle_gitmark (folder, url) {
+
+          if (url [url.length -1] == '#')
+             url = url.substring (0, url.length - 1);
+
+          if (folder.children) {
+              var existing = null;
+              folder.children.forEach (function (child) {
+                  if (child.url == url)
+                     existing = child;
+              });
+
+              if (existing != null) {
+                  chrome.bookmarks.remove (existing.id);
+                  return;
+              }
+          }
+
+          
+          chrome.bookmarks.create({'parentId': folder.id,
+                              'title': url, 
+                              'url': url});
+      };
+
+      chrome.extension.onRequest.addListener(
+         function(request, sender, sendResponse) {
+
+             if (request.greeting == "toggle_gitmark") {
+                console.log ('gitmarking page.');
+
+                chrome.bookmarks.getTree (function (bookmarks) {
+                    // A bold assumption
+                    var other_bookmarks = bookmarks [0].children [1]; 
+
+                    var gitmarks = null;
+                    other_bookmarks.children.forEach (function (bk) {
+                         if (bk.title == 'Gitmarks') {
+                             gitmarks = bk;
+                         }
+                    });
+
+                    if (gitmarks == null) {
+                        chrome.bookmarks.create({'parentId': other_bookmarks.id,
+                           'title': 'Gitmarks'},
+                           function (newfolder) {
+                               toggle_gitmark (newfolder, sender.tab.url);
+                        });
+                    } else {
+                        toggle_gitmark (gitmarks, sender.tab.url);
+                    }
+
+                    sendResponse({farewell: "page gitmarked"});
+                });
+
+
+                
+             } else if (request.greeting == "get_gitmarks") {
+                chrome.bookmarks.getTree (function (bookmarks) {
+                    // A bold assumption
+                    var other_bookmarks = bookmarks [0].children [1]; 
+
+                    var gitmarks = null;
+                    other_bookmarks.children.forEach (function (bk) {
+                         if (bk.title == 'Gitmarks') {
+                             gitmarks = bk;
+                         }
+                    });
+
+                    if (gitmarks == null) {
+                        sendResponse ({});
+                    } else {
+                        var results = new Array ();
+                        gitmarks.children.forEach (function (gitmark) {
+                            results.push (gitmark.url);
+                        });
+                        sendResponse ({gitmarks: results});
+                    }
+                });
+             } else if (request.greeting == "is_page_gitmarked") {
+                  chrome.bookmarks.getTree (function (bookmarks) {
+                    // A bold assumption
+                    var other_bookmarks = bookmarks [0].children [1]; 
+
+                    var gitmarks = null;
+                    other_bookmarks.children.forEach (function (bk) {
+                         if (bk.title == 'Gitmarks') {
+                             gitmarks = bk;
+                         }
+                    });
+
+                    if (gitmarks == null) {
+                        sendResponse ({page_is_gitmarked: false});
+                        return;
+                    } else {
+                        var result = false;
+                        var url = sender.tab.url;
+                        if (url [url.length -1] == '#')
+                              url = url.substring (0, url.length - 1);
+
+                        gitmarks.children.forEach (function (gitmark) {
+                            if (gitmark.url == url)
+                                result = true;
+                        });
+
+                        sendResponse ({page_is_gitmarked: result});
+                    }
+                });
+             } else
+                sendResponse ({farewell: "unknown greeting"});
+      });
+
+    </script>
+  </head>
+</html>
