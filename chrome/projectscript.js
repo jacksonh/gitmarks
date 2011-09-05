@@ -1,5 +1,4 @@
 
-
 function update_gitmarked_button () {
     chrome.extension.sendRequest({greeting: "is_page_gitmarked"}, function(response) {
 	if (response.page_is_gitmarked)
@@ -13,7 +12,7 @@ $('.actions').ready (function () {
     var actions = $('.actions');
     if (!actions || !actions.children)
 	return;
-    if (! $(actions.children ("li") [0]).hasClass ('for-owner'))
+    if ($(actions.children ("li") [0]).hasClass ('for-owner'))
 	return;
     $(actions.children ("li") [2]).before ("<li class='for-owner'><a href='#' class='minibutton' id='gitmark'><span class='icon' id='gitmarked_text'>Gitmark</span></a></li>");
     update_gitmarked_button ();
