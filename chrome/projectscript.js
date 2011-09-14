@@ -18,12 +18,12 @@ $('.actions').ready (function () {
     update_gitmarked_button ();
 });
 
-$('#gitmark').click (function () {
-    console.log ('clicked gitmark!');
-
-    chrome.extension.sendRequest({greeting: "toggle_gitmark"}, function(response) {
-	update_gitmarked_button ();
-    }); 
-
-    console.log ('sent request.');
+$('#gitmark').ready( function() {
+	$('#gitmark').click( function () {
+		chrome.extension.sendRequest({greeting: "toggle_gitmark"}, function(response) {
+			update_gitmarked_button ();
+		}); 
+		
+		console.log ('sent gitmark request.');
+	});
 });
