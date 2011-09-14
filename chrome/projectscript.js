@@ -18,8 +18,8 @@ $('.actions').ready (function () {
     update_gitmarked_button ();
 });
 
-$(document).ready( function() {
-	$('#gitmark').click (function () {
+$('#gitmark').ready( function() {
+	$('#gitmark').click( function () {
 		chrome.extension.sendRequest({greeting: "toggle_gitmark"}, function(response) {
 			update_gitmarked_button ();
 		}); 
