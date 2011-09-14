@@ -5,7 +5,7 @@ $("#watched_repos").ready (function () {
 
         var dashboard = "<div class='repos gitmarked' id='gitmarked_repos'>               \
             <div class='top-bar'>                                                         \
-               <h2>Gitmarked Repositories <em>" + response.gitmarks.length + "</em></h2>   \
+               <h2>Gitmarked Repositories <em>(" + response.gitmarks.length + ")</em></h2>   \
             </div>                                                                        \
             <ul class='repo_list' id='gitmarked_repo_listing'>";
 
