@@ -46,6 +46,7 @@ $("#watched_repos").ready( function() {
     chrome.extension.sendRequest({greeting: "get_gitmarks"}, function(response) {
 
 	    gitmarks = response.gitmarks;
+	    gitmarks.reverse();
 	
         var dashboard = "<div class='repos gitmarked' id='gitmarked_repos'>"
 	                  + "<div class='top-bar'><h2></h2></div>"
