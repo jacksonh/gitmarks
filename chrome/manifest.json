@@ -1,6 +1,6 @@
 {
 	"name":  "Gitmarks",
-	"version": "1.0",
+	"version": "1.1",
 	"description": "Keep track of your github projects.",
 	"background_page": "background.html",
 	"content_scripts": [
