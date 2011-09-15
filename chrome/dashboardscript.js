@@ -89,7 +89,7 @@ $('#dashboard').ready(function() {
 	
 	$('#dashboard').delegate('#your-gitmarks-filter', 'keyup', function(event) {
 		// filter repos on keypress
-		var filterString = $('#your-gitmarks-filter').val().trim();
+		var filterString = $('#your-gitmarks-filter').val().trim().toLowerCase();
 		
 		if (filterString === "") {
 			fillGitmarksList(gitmarks, true);
@@ -102,7 +102,7 @@ $('#dashboard').ready(function() {
 	        var owner = pieces [pieces.length - 2];
 	        var repo = pieces [pieces.length - 1];
 	
-	        if (owner.indexOf(filterString) != -1 || repo.indexOf(filterString) != -1)
+	        if (owner.toLowerCase().indexOf(filterString) != -1 || repo.toLowerCase().indexOf(filterString) != -1)
 	            filteredGitmarks.push(gitmark);
 		});
 		
