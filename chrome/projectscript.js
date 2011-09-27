@@ -1,5 +1,8 @@
-// add string trim function
-String.prototype.trim = function() { return this.replace(/^\s+|\s+$/g, ''); }
+if(typeof(String.prototype.trim) === "undefined") {
+    String.prototype.trim = function() {
+        return String(this).replace(/^\s+|\s+$/g, '');
+    };
+}
 
 function update_gitmarked_button () {
     chrome.extension.sendRequest({greeting: "is_page_gitmarked"}, function(response) {
