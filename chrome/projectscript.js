@@ -1,3 +1,5 @@
+// add string trim function
+String.prototype.trim = function() { return this.replace(/^\s+|\s+$/g, ''); }
 
 function update_gitmarked_button () {
     chrome.extension.sendRequest({greeting: "is_page_gitmarked"}, function(response) {
@@ -11,11 +13,17 @@ function update_gitmarked_button () {
 $('.actions').ready (function () {
     var actions = $('.actions');
     if (!actions || !actions.children)
-	return;
-    if ($(actions.children ("li") [0]).hasClass ('for-owner'))
-	return;
-    $(actions.children ("li") [2]).before ("<li class='for-owner'><a href='#' class='minibutton' id='gitmark'><span class='icon' id='gitmarked_text'>Gitmark</span></a></li>");
-    update_gitmarked_button ();
+        return;
+
+    var currentUserName = $("div.userbox a.name").text();
+    var pieces = window.location.href.split('/');
+    var repoOwner = pieces[3];
+    if (repoOwner.trim() == currentUserName.trim())
+        return;
+
+    var actionsChildren = actions.children("li");
+    $(actionsChildren[actionsChildren.length-1]).before ("<li class='for-owner'><a href='#' class='minibutton' id='gitmark'><span class='icon' id='gitmarked_text'>Gitmark</span></a></li>");
+    update_gitmarked_button();
 });
 
 $('#gitmark').ready( function() {
