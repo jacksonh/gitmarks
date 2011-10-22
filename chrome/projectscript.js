@@ -13,8 +13,8 @@ function update_gitmarked_button () {
     }); 
 }
 
-$('.actions').ready (function () {
-    var actions = $('.actions');
+$('.pagehead-actions').ready (function () {
+    var actions = $('.pagehead-actions');
     if (!actions || !actions.children)
         return;
 
