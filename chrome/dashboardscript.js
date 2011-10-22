@@ -1,3 +1,4 @@
+
 $("#watched_repos").ready( function() {
 
     chrome.extension.sendRequest({greeting: "get_gitmarks"}, function(response) {
@@ -6,11 +7,10 @@ $("#watched_repos").ready( function() {
                       + "    <div class='top-bar'>"
                       + "        <h2>Gitmarked Repositories <em>("
                       + response.gitmarks.length
-                      + ")</em></h2>"
+                      + "        )</em></h2>"
                       + "</div>"
                       + "<ul class='repo_list' id='gitmarked_repo_listing'>";
 
-        var hidden = false;
         for (var i=0; i<response.gitmarks.length; ++i) {
             var gitmark = response.gitmarks[i];
 
@@ -20,10 +20,9 @@ $("#watched_repos").ready( function() {
 
             dashboard += "<li class='public source"
 
-            if (i >= 10) {
+            if (i >= 10)
                 dashboard += " gitmark-hidden' style=\"display: none;\"";
-		hidden = true;
-            } else
+            else
                 dashboard += "'";
 
             dashboard += ">"
@@ -32,11 +31,9 @@ $("#watched_repos").ready( function() {
                        + "</a></li>";
         }
 
-	if (hidden) {
-            dashboard += "<div class='bottom-bar'><a href=\"#\" class='show-more' id='inline-gitmarked-repos'>Show "
+        dashboard += "<div class='bottom-bar'><a href=\"#\" class='show-more' id='inline-gitmarked-repos'>Show "
                   +  (response.gitmarks.length - 10)
                   +  " more repositories...</a></div>";
-	}
 
         $('#watched_repos').after(dashboard);
 
