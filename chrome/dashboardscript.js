@@ -1,4 +1,3 @@
-
 $("#watched_repos").ready( function() {
 
     chrome.extension.sendRequest({greeting: "get_gitmarks"}, function(response) {
@@ -7,7 +6,7 @@ $("#watched_repos").ready( function() {
                       + "    <div class='top-bar'>"
                       + "        <h2>Gitmarked Repositories <em>("
                       + response.gitmarks.length
-                      + "        )</em></h2>"
+                      + ")</em></h2>"
                       + "</div>"
                       + "<ul class='repo_list' id='gitmarked_repo_listing'>";
 
