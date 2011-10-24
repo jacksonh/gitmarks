@@ -13,9 +13,6 @@
       	    "js": ["jquery.js", "dashboardscript.js"]
 	  }
   	],
-	"page_action": {
-	   "name": "Gitmarks. Easily keep track of github projects."
-	},
 	"permissions": [
 	   "tabs", "bookmarks"
 	]
