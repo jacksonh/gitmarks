@@ -56,7 +56,8 @@
                                toggle_gitmark (newfolder, sender.tab.url);
                         });
                     } else {
-                        toggle_gitmark (gitmarks, sender.tab.url);
+                        repo_url = sender.tab.url.replace(/https:\/\/github.com\/(\w+)\/(\w+)\/.*/i, "https://github.com/$1/$2");
+                        toggle_gitmark (gitmarks, repo_url);
                     }
 
                     sendResponse({farewell: "page gitmarked"});
@@ -108,7 +109,7 @@
                               url = url.substring (0, url.length - 1);
 
                         gitmarks.children.forEach (function (gitmark) {
-                            if (gitmark.url == url)
+                            if (gitmark.url.match(url) != null)
                                 result = true;
                         });
 
