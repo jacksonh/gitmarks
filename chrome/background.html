@@ -56,7 +56,7 @@
                                toggle_gitmark (newfolder, sender.tab.url);
                         });
                     } else {
-                        repo_url = sender.tab.url.replace(/https:\/\/github.com\/(\w+)\/(\w+)\/.*/i, "https://github.com/$1/$2");
+                        repo_url = sender.tab.url.replace(/https:\/\/github.com\/([a-z0-9_\-\.]+)\/([a-z0-9_\-\.]+)\/.*/i,"https://github.com/$1/$2");
                         toggle_gitmark (gitmarks, repo_url);
                     }
 
