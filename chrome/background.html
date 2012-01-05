@@ -109,7 +109,7 @@
                               url = url.substring (0, url.length - 1);
 
                         gitmarks.children.forEach (function (gitmark) {
-                            if (gitmark.url.match(url) != null)
+                            if (url.match(gitmark.url) != null)
                                 result = true;
                         });
 
