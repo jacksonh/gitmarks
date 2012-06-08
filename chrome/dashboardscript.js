@@ -21,12 +21,13 @@ function fillGitmarksList(gitmarks, showAll) {
         if (i >= 10 && showAll === false) {
             html += " gitmark-hidden' style=\"display: none;\"";
         } else {
-            html += "'";
+            html += "' style=\"display: block;\"";
         }
 
         html += ">"
-              + "<a href='" + gitmark + "'>"
+              + "<a href='" + gitmark + "' style='padding-left: 10px;'>"
               + "<span class='owner'>" + owner + "</span>/<span class='repo'>" + repo + "</span>"
+              + "<span class='arrow'></span>"
               + "</a></li>";
     }
 
